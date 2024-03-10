@@ -4,6 +4,7 @@ use App\Enums\ActivityArea;
 use App\Enums\ActivitySubject;
 use App\Enums\CompanyType;
 use App\Enums\LicenseType;
+use Carbon\Carbon;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -31,14 +32,17 @@ return new class extends Migration
             $table->string('company_registration_place');
             $table->date('company_registration_date');
             $table->boolean('is_danesh_bonyan');
-            $table->enum('danesh_bonyan_license_type', LicenseType::getValues())->nullable();
-            $table->date('danesh_bonyan_license_issuance_date')->nullable();
-            $table->date('danesh_bonyan_license_validity_date')->nullable();
+            $table->enum('danesh_bonyan_license_type', LicenseType::getValues())
+                ->nullable();
+            $table->date('danesh_bonyan_license_issuance_date')
+                ->nullable();
+            $table->date('danesh_bonyan_license_validity_date')
+                ->nullable();
             $table->string('license_title');
             $table->date('license_issuance_date');
             $table->date('license_validity_date');
             $table->date('license_issuance_reference');
-            $table->date('registration_date');
+            $table->date('registration_date')->default(Carbon::now());
             $table->timestamps();
         });
     }
