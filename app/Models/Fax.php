@@ -10,7 +10,7 @@ class Fax extends Model
 {
     use HasFactory;
     protected $fillable = [
-      'user_id',
+      'companies_information_id',
       'fax_number',
     ];
     public function user(): BelongsTo
