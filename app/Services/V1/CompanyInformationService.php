@@ -36,6 +36,7 @@ class CompanyInformationService
        ImageService::save($request, $companyInformation);
         $companyInformation->phones()->create(['phone_number'=>$request->input('phone_number')]);
         $companyInformation->faxes()->create(['fax_number'=>$request->input('phone_number')]);
+        $companyInformation->tracking()->create(['code'=>rand(100000000, 1000000000)]);
 
     }
 }
