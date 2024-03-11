@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('faxes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('companies_information_id')
+            $table->foreignId('company_id')
                 ->constrained()
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();

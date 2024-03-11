@@ -10,12 +10,12 @@ class Phone extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'companies_information_id',
+        'company_information_id',
         'phone_number',
     ];
 
-    public function user(): BelongsTo
+    public function company(): BelongsTo
     {
-        return $this->belongsTo(CompanyInformation::class);
+        return $this->belongsTo(Company::class);
     }
 }

@@ -13,8 +13,8 @@ class Fax extends Model
       'companies_information_id',
       'fax_number',
     ];
-    public function user(): BelongsTo
+    public function company(): BelongsTo
     {
-        return $this->belongsTo(CompanyInformation::class);
+        return $this->belongsTo(Company::class);
     }
 }

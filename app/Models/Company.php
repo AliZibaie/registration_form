@@ -8,10 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
-class CompanyInformation extends Model
+class Company extends Model
 {
     use HasFactory;
-    protected $table = 'companies_informations';
     protected $fillable = [
       'name',
       'english_name',

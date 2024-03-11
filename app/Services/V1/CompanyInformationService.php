@@ -3,7 +3,7 @@
 namespace App\Services\V1;
 
 use App\Http\Requests\API\V1\CompanyInformation\StoreCompanyInformationRequest;
-use App\Models\CompanyInformation;
+use App\Models\Company;
 
 class CompanyInformationService
 {
@@ -32,6 +32,10 @@ class CompanyInformationService
             'license_validity_date'=>$request->input('company_registration_date'),
             'license_issuance_reference'=>$request->input('company_registration_date'),
         ];
-       CompanyInformation::query()->create($companyInformation);
+       $companyInformation = Company::create($companyInformation);
+       ImageService::save($request, $companyInformation);
+        $companyInformation->phones()->create(['phone_number'=>$request->input('phone_number')]);
+        $companyInformation->faxes()->create(['fax_number'=>$request->input('phone_number')]);
+
     }
 }
