@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\IsDaneshBonyan;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -10,9 +11,10 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 class CompanyInformation extends Model
 {
     use HasFactory;
+    protected $table = 'companies_informations';
     protected $fillable = [
       'name',
-      'name_in_english',
+      'english_name',
       'website',
       'email',
       'activity_area',
@@ -33,6 +35,9 @@ class CompanyInformation extends Model
       'license_validity_date',
       'license_issuance_reference',
       'registration_date',
+    ];
+    protected $casts = [
+      'is_danesh_bonyan'=>IsDaneshBonyan::class
     ];
 
     public function faxes(): HasMany

@@ -6,6 +6,7 @@ use App\Enums\ActivityArea;
 use App\Enums\ActivitySubject;
 use App\Enums\CompanyType;
 use App\Enums\LicenseType;
+use App\Enums\IsDaneshBonyan as Enum;
 use App\Rules\V1\FormPageOne\HasLicense;
 use App\Rules\V1\FormPageOne\IranianFaxNumber;
 use App\Rules\V1\FormPageOne\IranianPhoneNumber;
@@ -52,7 +53,7 @@ class StoreCompanyInformationRequest extends FormRequest
             'company_type'=>['bail', 'required', Rule::enum(CompanyType::class)],
             'company_registration_place'=>['bail', 'required', new ProvinceAndCity()],
             'company_registration_date'=>'bail|required|date',
-            'is_danesh_bonyan'=>['bail', 'required', 'boolean'],
+            'is_danesh_bonyan'=>['bail', 'required', Rule::enum(Enum::class)],
             'danesh_bonyan_license_type'=>['bail', new IsDaneshBonyan, Rule::enum(LicenseType::class)],
             'danesh_bonyan_license_issuance_date'=>['bail', new IsDaneshBonyan, 'date'],
             'danesh_bonyan_license_validity_date'=>['bail', new IsDaneshBonyan, 'date'],
@@ -60,6 +61,10 @@ class StoreCompanyInformationRequest extends FormRequest
             'license_issuance_date'=>['bail', new HasLicense(), 'date'],
             'license_validity_date'=>['bail', new HasLicense(), 'date'],
             'license_issuance_reference'=>['bail', new HasLicense()],
+            'logo'=>'bail|required|image|extensions:svg,png',
+            'resume'=>'bail|required|image|extensions:svg,png',
+            'statute'=>'bail|required|image',
+            'national_card_and_birth'=>'bail|required|image',
         ];
     }
     protected function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)
@@ -79,6 +84,9 @@ class StoreCompanyInformationRequest extends FormRequest
             'website.regex'=>'لطفا وبگاه را بصورت انگلیسی وارد نمائید',
             'email.required'=>'لطفا ادرس ایمیل خود را وارد نمائید',
             'email.email'=>'لطفا ایمیل معتبر وارد نمائید',
+            'phone_number.required'=>'لطفا شماره همراه خود را وارد نمائید',
+            'fax_number.required'=>'لطفا نمابر خود را وارد نمائید',
+
         ];
     }
 }

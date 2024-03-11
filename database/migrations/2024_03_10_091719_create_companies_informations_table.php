@@ -19,7 +19,7 @@ return new class extends Migration
         Schema::create('companies_informations', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('name_in_english');
+            $table->string('english_name');
             $table->text('website');
             $table->text('email');
             $table->enum('activity_area', ActivityArea::getValues());

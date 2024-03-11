@@ -20,5 +20,5 @@ use Illuminate\Support\Facades\Route;
 //});
 
 Route::prefix('v1')->group(function (){
-    Route::post('company/registration', [CompanyController::class, 'register']);
+    Route::post('companies/registration', [CompanyController::class, 'register']);
 });
