@@ -18,8 +18,11 @@ class ImageService
 
     private static function saveImage(StoreCompanyInformationRequest $request, Company $companyInformation,  string $title): void
     {
-        $path = $request->file($title)->store("public/$title");
-        $info = ['url'=>$path, 'title'=>$title];
-        $companyInformation->images()->create($info);
+        $files = $request->file($title);
+        foreach ($files as $file) {
+            $path = $file->store("public/$title");
+            $info = ['url'=>$path, 'title'=>$title];
+            $companyInformation->images()->create($info);
+        }
     }
 }

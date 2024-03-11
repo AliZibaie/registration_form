@@ -5,8 +5,13 @@ namespace App\Rules\V1\FormPageOne;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 
-class IsDaneshBonyan implements ValidationRule
+class ImageLimitationCount implements ValidationRule
 {
+    public function __construct(private string $title, private int $cuont)
+    {
+
+    }
+
     /**
      * Run the validation rule.
      *
@@ -14,6 +19,8 @@ class IsDaneshBonyan implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        //
+       if(count(request()->file($this->title)) > $this->cuont){
+           $fail("لطفا فقط $this->cuont عدد عکس وارد نمائید.");
+       }
     }
 }
