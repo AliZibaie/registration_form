@@ -2,6 +2,8 @@
 
 namespace App\Services\V1;
 
+use App\Enums\ParkRegistrationsSubStepStatus;
+use App\Enums\ParkRegistrationStepStatus;
 use App\Http\Requests\API\V1\Steps\StoreFormStepOneRequest;
 use App\Models\CompanyField;
 
@@ -36,8 +38,9 @@ class FormStepOneService
        ImageService::save($request, $companyInformation);
        self::createPhones($companyInformation, $request->input('phone_number'));
        self::createFaxes($companyInformation, $request->input('fax_number'));
-        $companyInformation->tracking()->create(['code'=>rand(100000000, 1000000000)]);
-
+        $trackingCode = $companyInformation->tracking()->create(['code'=>rand(100000000, 1000000000)]);
+        $progressLog = ['sub_step'=>ParkRegistrationsSubStepStatus::SUB_STEP_COMPANY_COMPLETED, 'step'=>ParkRegistrationStepStatus::STEP_PRIMARY_INFORMATION];
+        $trackingCode->progressLog()->create($progressLog);
     }
 
     public static function createPhones(CompanyField $companyInformation, array $phone_numbers): void
@@ -45,7 +48,6 @@ class FormStepOneService
         foreach ($phone_numbers as $phone_number) {
             $companyInformation->phones()->create(['phone_number'=>$phone_number]);
         }
-
     }
 
     public static function createFaxes(CompanyField $companyInformation, array $fax_numbers): void
