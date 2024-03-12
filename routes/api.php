@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\V1\RegisterController;
+use App\Http\Controllers\API\V1\TrackingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,9 +20,9 @@ use Illuminate\Support\Facades\Route;
 //    return $request->user();
 //});
 
-Route::prefix('v1')->group(function (){
-    Route::post('registration/step_one', [RegisterController::class, 'registerCompany']);
-//    Route::post('registration/step_two', [RegisterController::class, 'registerFormStepTwo']);
+Route::prefix('v1/registration')->group(function (){
+    Route::post('/step_one', [RegisterController::class, 'registerCompany']);
+    Route::post('/tracking', [TrackingController::class, 'continueForm']);
 //    Route::post('registration/step_three', [RegisterController::class, 'registerFormStepThree']);
 //    Route::post('registration/step_four', [RegisterController::class, 'registerFormStepFour']);
 });

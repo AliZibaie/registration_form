@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Requests\API\V1\Steps;
+namespace App\Http\Requests\API\V1\ParkRegistrationStepOne;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreFormStepTwoRequest extends FormRequest
+class StoreFormSubStepTwoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**

@@ -4,13 +4,13 @@ namespace App\Services\V1\ParkRegistrationStepOne;
 
 use App\Enums\ParkRegistrationsSubStepStatus;
 use App\Enums\ParkRegistrationStepStatus;
-use App\Http\Requests\API\V1\Steps\StoreFormStepOneRequest;
+use App\Http\Requests\API\V1\ParkRegistrationStepOne\StoreFormSubStepOneRequest;
 use App\Models\CompanyField;
 use App\Services\V1\ImageService;
 
 class FormSubStepOneService
 {
-    public static function save(StoreFormStepOneRequest $request)
+    public static function save(StoreFormSubStepOneRequest $request)
     {
         $companyInformation = [
             'name'=>$request->input('name'),
