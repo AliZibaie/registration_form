@@ -2,13 +2,13 @@
 
 namespace App\Services\V1;
 
-use App\Http\Requests\API\V1\CompanyInformation\StoreCompanyInformationRequest;
-use App\Models\Company;
+use App\Http\Requests\API\V1\Steps\StoreFormStepOneRequest;
 use App\Models\Image;
+use App\Models\RegistrationForm;
 
 class ImageService
 {
-    public static function save(StoreCompanyInformationRequest $request, Company $companyInformation)
+    public static function save(StoreFormStepOneRequest $request, RegistrationForm $companyInformation)
     {
         self::saveImage($request, $companyInformation, 'logo');
         self::saveImage($request, $companyInformation, 'resume');
@@ -16,7 +16,7 @@ class ImageService
         self::saveImage($request, $companyInformation, 'national_card_and_birth');
     }
 
-    private static function saveImage(StoreCompanyInformationRequest $request, Company $companyInformation,  string $title): void
+    private static function saveImage(StoreFormStepOneRequest $request, RegistrationForm $companyInformation, string $title): void
     {
         $files = $request->file($title);
         foreach ($files as $file) {

@@ -6,15 +6,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Fax extends Model
+class ProgressLog extends Model
 {
     use HasFactory;
     protected $fillable = [
-      'companies_information_id',
-      'fax_number',
+      'tracking_id',
+      'sub_step',
+      'step',
     ];
-    public function companyField(): BelongsTo
+
+    public function tracking(): BelongsTo
     {
-        return $this->belongsTo(CompanyField::class);
+        return $this->belongsTo(Tracking::class);
     }
 }

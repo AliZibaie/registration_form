@@ -14,8 +14,8 @@ class Phone extends Model
         'phone_number',
     ];
 
-    public function company(): BelongsTo
+    public function companyField(): BelongsTo
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(CompanyField::class);
     }
 }

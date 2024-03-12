@@ -1,5 +1,7 @@
 <?php
 
+use App\Enums\ParkRegistrationsSubStepStatus;
+use App\Enums\ParkRegistrationStepStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,13 +13,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('phones', function (Blueprint $table) {
+        Schema::create('progress_logs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('company_field_id')
+            $table->foreignId('tracking_id')
                 ->constrained()
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
-            $table->string('phone_number');
+            $table->enum('step', [ParkRegistrationStepStatus::getValues()]);
+            $table->enum('sub_step', [ParkRegistrationsSubStepStatus::getValues()]);
             $table->timestamps();
         });
     }
@@ -27,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('phones');
+        Schema::dropIfExists('progress_logs');
     }
 };

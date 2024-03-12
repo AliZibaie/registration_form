@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\API\V1\CompanyInformation;
+namespace App\Http\Requests\API\V1\Steps;
 
 use App\Enums\ActivityArea;
 use App\Enums\ActivitySubject;
@@ -8,14 +8,12 @@ use App\Enums\CompanyType;
 use App\Enums\IsDaneshBonyan;
 use App\Enums\LicenseType;
 use App\Enums\IsDaneshBonyan as Enum;
-use App\Rules\V1\FormPageOne\HasLicense;
-use App\Rules\V1\FormPageOne\ImageLimitationCount;
-use App\Rules\V1\FormPageOne\ProvinceAndCity;
+use App\Rules\V1\FormStepOne\ImageLimitationCount;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Validation\Rule;
 
-class StoreCompanyInformationRequest extends FormRequest
+class StoreFormStepOneRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -48,7 +46,7 @@ class StoreCompanyInformationRequest extends FormRequest
             'activity_summary'=>'required|regex:/^[\p{Arabic} ]+$/u|min:3|max:255',
             'national_code'=>['bail', 'required', 'regex:/^[۰-۹]+$/'],
             'company_registration_number'=>['bail', 'required', 'regex:/^[۰-۹]+$/'],
-            'company_registration_place'=>['bail', 'required', new ProvinceAndCity()], //TODO
+            'company_registration_place'=>['bail', 'required', 'string'],
             'company_registration_date'=>'bail|required|date|before:yesterday',
             'national_card_and_birth.*'=>['bail', 'required', 'image', 'max:5120', new ImageLimitationCount('national_card_and_birth', 2)],
             'company_type'=>['bail', 'required', Rule::enum(CompanyType::class)],
@@ -56,7 +54,6 @@ class StoreCompanyInformationRequest extends FormRequest
             'danesh_bonyan_license_type'=>['bail', Rule::requiredIf(request('is_danesh_bonyan') === IsDaneshBonyan::YES->value), Rule::enum(LicenseType::class)],
             'danesh_bonyan_license_issuance_date'=>['bail',  Rule::requiredIf(request('is_danesh_bonyan') === IsDaneshBonyan::YES->value), 'date', 'before:today'],
             'danesh_bonyan_license_validity_date'=>['bail',  Rule::requiredIf(request('is_danesh_bonyan') === IsDaneshBonyan::YES->value), 'date', 'after:yesterday'],
-
             'license_title'=>'required',
             'license_issuance_date'=>['bail', Rule::requiredIf(request()->has('license_title')), 'date', 'before:today'],
             'license_validity_date'=>['bail', Rule::requiredIf(request()->has('license_title')), 'date', 'after:yesterday'],
@@ -83,7 +80,6 @@ class StoreCompanyInformationRequest extends FormRequest
             'email.regex'=>'لطفا ایمیل را بصورت انگلیسی وارد نمائید',
             'phone_number.required'=>'لطفا شماره همراه خود را وارد نمائید',
             'fax_number.required'=>'لطفا نمابر خود را وارد نمائید',
-
         ];
     }
 }

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Rules\V1\FormPageOne;
+namespace App\Rules\V1\FormStepOne;
 
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 
-class ProvinceAndCity implements ValidationRule
+class Persian implements ValidationRule
 {
     /**
      * Run the validation rule.
@@ -14,6 +14,9 @@ class ProvinceAndCity implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        //
+            if (!preg_match('/^[\p{Arabic} ]+$/u', $value)) {
+                $fail('لطفا فیلد مورد نظر را بصورت فارسی وارد کنید.');
+            }
+
     }
 }

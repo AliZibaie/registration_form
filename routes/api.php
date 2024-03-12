@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\API\V1\CompanyController;
+use App\Http\Controllers\API\V1\RegisterController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,5 +20,8 @@ use Illuminate\Support\Facades\Route;
 //});
 
 Route::prefix('v1')->group(function (){
-    Route::post('companies/registration', [CompanyController::class, 'register']);
+    Route::post('registration/step_one', [RegisterController::class, 'registerFormStepOne']);
+    Route::post('registration/step_two', [RegisterController::class, 'registerFormStepTwo']);
+    Route::post('registration/step_three', [RegisterController::class, 'registerFormStepThree']);
+    Route::post('registration/step_four', [RegisterController::class, 'registerFormStepFour']);
 });

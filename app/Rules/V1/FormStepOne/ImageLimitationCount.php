@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Rules\V1\FormPageOne;
+namespace App\Rules\V1\FormStepOne;
 
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;

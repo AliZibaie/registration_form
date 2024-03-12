@@ -2,12 +2,12 @@
 
 namespace App\Services\V1;
 
-use App\Http\Requests\API\V1\CompanyInformation\StoreCompanyInformationRequest;
-use App\Models\Company;
+use App\Http\Requests\API\V1\Steps\StoreFormStepOneRequest;
+use App\Models\RegisterationForm;
 
-class CompanyInformationService
+class FormStepOneService
 {
-    public static function save(StoreCompanyInformationRequest $request)
+    public static function save(StoreFormStepOneRequest $request)
     {
         $companyInformation = [
             'name'=>$request->input('name'),
@@ -32,7 +32,7 @@ class CompanyInformationService
             'license_validity_date'=>$request->input('company_registration_date'),
             'license_issuance_reference'=>$request->input('company_registration_date'),
         ];
-       $companyInformation = Company::create($companyInformation);
+       $companyInformation = RegisterationForm::create($companyInformation);
        ImageService::save($request, $companyInformation);
         $companyInformation->phones()->create(['phone_number'=>$request->input('phone_number')]);
         $companyInformation->faxes()->create(['fax_number'=>$request->input('phone_number')]);

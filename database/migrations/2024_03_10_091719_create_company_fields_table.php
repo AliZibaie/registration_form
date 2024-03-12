@@ -16,8 +16,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('companies', function (Blueprint $table) {
+        Schema::create('registration_forms', function (Blueprint $table) {
             $table->id();
+            $table->string('current_step');
             $table->string('name');
             $table->string('english_name');
             $table->text('website');

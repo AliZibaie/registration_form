@@ -13,11 +13,15 @@ return new class extends Migration
     {
         Schema::create('trackings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('company_id')
+            $table->foreignId('company_field_id')
                 ->constrained()
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
-            $table->integer('code')->unique();
+            $table->foreignId('chief_executive_officer_field_id')->nullable();
+            $table->foreignId('board_governance_field_id')->nullable();
+            $table->foreignId('shareholding_field_id')->nullable();
+            $table->integer('code')
+                ->unique();
             $table->timestamps();
         });
     }
