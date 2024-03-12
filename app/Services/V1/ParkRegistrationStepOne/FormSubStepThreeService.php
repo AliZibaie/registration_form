@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Services\V1;
+namespace App\Services\V1\ParkRegistrationStepOne;
 
 use App\Http\Requests\API\V1\Steps\StoreFormStepThreeRequest;
 
-class FormStepThreeService
+class FormSubStepThreeService
 {
     public static function save(StoreFormStepThreeRequest $request)
     {
