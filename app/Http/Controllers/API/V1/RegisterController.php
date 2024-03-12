@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 class RegisterController extends Controller
 {
 
-    public function registerFormStepOne(StoreFormStepOneRequest $request)
+    public function registerCompany(StoreFormStepOneRequest $request)
     {
         try {
             FormStepOneService::save($request);
@@ -27,35 +27,4 @@ class RegisterController extends Controller
         }
     }
 
-    public function registerFormStepTwo(StoreFormStepTwoRequest $request)
-    {
-        try {
-            FormStepTwoService::save($request);
-            echo "success";
-        }catch (\Throwable $throwable){
-            echo "fail";
-            dd($throwable->getMessage());
-        }
-    }
-
-    public function registerFormStepThree(StoreFormStepThreeRequest $request)
-    {
-        try {
-            FormStepThreeService::save($request);
-            echo "success";
-        }catch (\Throwable $throwable){
-            echo "fail";
-            dd($throwable->getMessage());
-        }
-    }
-    public function registerFormStepFour(StoreFormStepFourRequest $request)
-    {
-        try {
-            FormStepFourService::save($request);
-            echo "success";
-        }catch (\Throwable $throwable){
-            echo "fail";
-            dd($throwable->getMessage());
-        }
-    }
 }

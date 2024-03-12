@@ -20,8 +20,8 @@ use Illuminate\Support\Facades\Route;
 //});
 
 Route::prefix('v1')->group(function (){
-    Route::post('registration/step_one', [RegisterController::class, 'registerFormStepOne']);
-    Route::post('registration/step_two', [RegisterController::class, 'registerFormStepTwo']);
-    Route::post('registration/step_three', [RegisterController::class, 'registerFormStepThree']);
-    Route::post('registration/step_four', [RegisterController::class, 'registerFormStepFour']);
+    Route::post('registration/step_one', [RegisterController::class, 'registerCompany']);
+//    Route::post('registration/step_two', [RegisterController::class, 'registerFormStepTwo']);
+//    Route::post('registration/step_three', [RegisterController::class, 'registerFormStepThree']);
+//    Route::post('registration/step_four', [RegisterController::class, 'registerFormStepFour']);
 });

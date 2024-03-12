@@ -3,7 +3,7 @@
 namespace App\Services\V1;
 
 use App\Http\Requests\API\V1\Steps\StoreFormStepOneRequest;
-use App\Models\RegisterationForm;
+use App\Models\CompanyField;
 
 class FormStepOneService
 {
@@ -23,20 +23,36 @@ class FormStepOneService
             'company_type'=>$request->input('company_type'),
             'company_registration_place'=>$request->input('company_registration_place'),
             'company_registration_date'=>$request->input('company_registration_date'),
-            'is_danesh_bonyan'=>$request->input('company_registration_date'),
-//            'danesh_bonyan_license_type'=>$request->input('company_registration_date'),
-//            'danesh_bonyan_license_issuance_date'=>$request->input('company_registration_date'),
-//            'danesh_bonyan_license_validity_date'=>$request->input('company_registration_date'),
+            'is_danesh_bonyan'=>$request->input('is_danesh_bonyan'),
+            'danesh_bonyan_license_type'=>$request->has('is_danesh_bonyan') ? $request->input('danesh_bonyan_license_type'): null,
+            'danesh_bonyan_license_issuance_date'=>$request->has('is_danesh_bonyan') ?$request->input('danesh_bonyan_license_issuance_date'): null,
+            'danesh_bonyan_license_validity_date'=>$request->has('is_danesh_bonyan') ?$request->input('danesh_bonyan_license_validity_date'): null,
             'license_title'=>$request->input('company_registration_date'),
             'license_issuance_date'=>$request->input('company_registration_date'),
             'license_validity_date'=>$request->input('company_registration_date'),
             'license_issuance_reference'=>$request->input('company_registration_date'),
         ];
-       $companyInformation = RegisterationForm::create($companyInformation);
+       $companyInformation = CompanyField::create($companyInformation);
        ImageService::save($request, $companyInformation);
-        $companyInformation->phones()->create(['phone_number'=>$request->input('phone_number')]);
-        $companyInformation->faxes()->create(['fax_number'=>$request->input('phone_number')]);
+       self::createPhones($companyInformation, $request->input('phone_number'));
+       self::createFaxes($companyInformation, $request->input('fax_number'));
         $companyInformation->tracking()->create(['code'=>rand(100000000, 1000000000)]);
 
     }
-}
+
+    public static function createPhones(CompanyField $companyInformation, array $phone_numbers): void
+    {
+        foreach ($phone_numbers as $phone_number) {
+            $companyInformation->phones()->create(['phone_number'=>$phone_number]);
+        }
+
+    }
+
+    public static function createFaxes(CompanyField $companyInformation, array $fax_numbers): void
+    {
+        foreach ($fax_numbers as $fax_number) {
+            $companyInformation->faxes()->create(['fax_number' => $fax_number]);
+        }
+    }
+
+    }
