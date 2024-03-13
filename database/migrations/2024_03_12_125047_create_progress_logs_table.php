@@ -2,6 +2,7 @@
 
 use App\Enums\ParkRegistrationsSubStepStatus;
 use App\Enums\ParkRegistrationStepStatus;
+use App\Enums\RegistrationStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -21,6 +22,7 @@ return new class extends Migration
                 ->cascadeOnUpdate();
             $table->enum('step', [ParkRegistrationStepStatus::getValues()]);
             $table->enum('sub_step', [ParkRegistrationsSubStepStatus::getValues()]);
+            $table->enum('status', [RegistrationStatus::getValues()])->default(RegistrationStatus::NOT_COMPLETED);
             $table->timestamps();
         });
     }
