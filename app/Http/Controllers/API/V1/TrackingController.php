@@ -6,6 +6,7 @@ use App\Enums\ParkRegistrationsSubStepStatus;
 use App\Http\Controllers\Controller;
 use App\Models\ProgressLog;
 use App\Models\Tracking;
+use http\Env\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -24,7 +25,11 @@ class TrackingController extends Controller
             ]);
             $trackingModel = Tracking::query()->where('code', request('code'))->first();
             $sub_step = $trackingModel->progressLog->sub_step;
-            return redirect()->route($this->nextStep($sub_step));
+            return response()->json([
+                'status'=>true,
+                'step'=>'park_registration',
+                'sub_step'=>'company',
+            ]);
         }catch (\Throwable $throwable){
             return response()
                 ->json([

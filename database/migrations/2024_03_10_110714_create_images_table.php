@@ -14,8 +14,14 @@ return new class extends Migration
         Schema::create('images', function (Blueprint $table) {
             $table->id();
             $table->morphs('imageable');
-            $table->text('url');
-            $table->string('title');
+            $table->text('path');
+            $table->string('name');
+            $table->ipAddress('ip')
+                ->nullable();
+            $table->string('browser')
+                ->nullable();
+            $table->string('platform')
+                ->nullable();
             $table->timestamps();
         });
     }

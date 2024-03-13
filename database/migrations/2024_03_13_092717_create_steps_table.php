@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('chief_executive_officer_fields', function (Blueprint $table) {
+        Schema::create('steps', function (Blueprint $table) {
             $table->id();
+            $table->string('step_number');
+            //those steps that their step_id is null are the main step and those steps that have step_id!=null are sub step
+            $table->foreignId('step_id')
+                ->nullable();
             $table->timestamps();
         });
     }
@@ -22,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('chief_executive_officer_fields');
+        Schema::dropIfExists('steps');
     }
 };

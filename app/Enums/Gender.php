@@ -4,10 +4,10 @@ namespace App\Enums;
 
 use App\Traits\HasEnumValues;
 
-enum IsDaneshBonyan: string
+enum Gender: string
 {
     use HasEnumValues;
-    case YES = 'بلی';
-    case NO = 'خیر';
+    case MALE =  'male';
+    case FEMALE =  'female';
 
 }

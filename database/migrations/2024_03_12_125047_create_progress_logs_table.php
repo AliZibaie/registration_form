@@ -16,12 +16,14 @@ return new class extends Migration
     {
         Schema::create('progress_logs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('tracking_id')
+            $table->foreignId('tracking_code_id')
                 ->constrained()
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
-            $table->enum('step', [ParkRegistrationStepStatus::getValues()]);
-            $table->enum('sub_step', [ParkRegistrationsSubStepStatus::getValues()]);
+            $table->ipAddress('ip')->nullable();
+            $table->string('browser')->nullable();
+            $table->string('platform')->nullable();
+            $table->foreignId('step_id');
             $table->enum('status', [RegistrationStatus::getValues()])->default(RegistrationStatus::NOT_COMPLETED);
             $table->timestamps();
         });

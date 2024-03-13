@@ -5,14 +5,17 @@ namespace App\Http\Controllers\API\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\V1\ParkRegistrationStepOne\StoreFormSubStepOneRequest;
 use App\Http\Requests\API\V1\ParkRegistrationStepOne\StoreFormSubStepTwoRequest;
+use App\Http\Requests\API\V1\ParkRegistrationStepOne\UpdateFormSubStepOneRequest;
 use App\Services\V1\ParkRegistrationStepOne\FormSubStepOneService;
 use App\Services\V1\ParkRegistrationStepOne\FormSubStepTwoService;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpFoundation\Response;
 
 class RegisterController extends Controller
 {
 
-    public function registerCompany(StoreFormSubStepOneRequest $request)
+    // first step form and first sub step form (company information)
+    public function registerStepOne(StoreFormSubStepOneRequest $request)
     {
         try {
             DB::beginTransaction();
@@ -21,6 +24,7 @@ class RegisterController extends Controller
             return response()
                 ->json([
                     'status'=>true,
+                    'code'=>Response::HTTP_CREATED,
                     'message'=>'company information stored successfully',
                     'tracking_code'=>$trackingCode,
                 ]);
@@ -29,7 +33,31 @@ class RegisterController extends Controller
             return response()
                 ->json([
                     'status'=>false,
-                    'message'=>'operation failed',
+                    'code'=>Response::HTTP_INTERNAL_SERVER_ERROR,
+                    'message'=>'failed to store information!',
+                ]);
+        }
+    }
+
+    public function updateStepOne(UpdateFormSubStepOneRequest $request)
+    {
+        dd($request->validated());
+        try {
+            DB::beginTransaction();
+            FormSubStepOneService::update($request);
+            DB::commit();
+            return response()
+                ->json([
+                    'status'=>true,
+                    'message'=>'company information updated successfully',
+                ]);
+        }catch (\Throwable $throwable){
+            DB::rollBack();
+            return response()
+                ->json([
+                    'status'=>false,
+                    'message'=>$throwable->getMessage(),
+//                    'message'=>'operation failed',
                 ], 500);
         }
     }

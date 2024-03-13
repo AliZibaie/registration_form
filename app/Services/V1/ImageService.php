@@ -3,12 +3,13 @@
 namespace App\Services\V1;
 
 use App\Http\Requests\API\V1\ParkRegistrationStepOne\StoreFormSubStepOneRequest;
+use App\Http\Requests\API\V1\ParkRegistrationStepOne\UpdateFormSubStepOneRequest;
 use App\Models\Image;
-use App\Models\CompanyField;
+use App\Models\RegistrationField;
 
 class ImageService
 {
-    public static function save(StoreFormSubStepOneRequest $request, CompanyField $companyInformation)
+    public static function save(StoreFormSubStepOneRequest $request, RegistrationField $companyInformation)
     {
         self::saveImage($request, $companyInformation, 'logo');
         self::saveImage($request, $companyInformation, 'resume');
@@ -16,7 +17,7 @@ class ImageService
         self::saveImage($request, $companyInformation, 'national_card_and_birth');
     }
 
-    private static function saveImage(StoreFormSubStepOneRequest $request, CompanyField $companyInformation, string $title): void
+    private static function saveImage(StoreFormSubStepOneRequest $request, RegistrationField $companyInformation, string $title): void
     {
         $files = $request->file($title);
         foreach ($files as $file) {
@@ -24,5 +25,9 @@ class ImageService
             $info = ['url'=>$path, 'title'=>$title];
             $companyInformation->images()->create($info);
         }
+    }
+
+    public static function update(UpdateFormSubStepOneRequest $request, RegistrationField $companyInformation)
+    {
     }
 }

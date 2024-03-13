@@ -11,5 +11,6 @@ enum RegistrationStatus: string
     case REJECTED = 'rejected';
     case PENDING = 'pending';
     case NOT_COMPLETED = 'not_completed';
+    case RETURNED = 'returned';
 
 }

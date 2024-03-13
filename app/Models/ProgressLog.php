@@ -11,12 +11,16 @@ class ProgressLog extends Model
     use HasFactory;
     protected $fillable = [
       'tracking_id',
-      'sub_step',
-      'step',
+      'step_id',
+      'status',
     ];
 
     public function tracking(): BelongsTo
     {
         return $this->belongsTo(Tracking::class);
+    }
+    public function step(): BelongsTo
+    {
+        return $this->belongsTo(Step::class);
     }
 }

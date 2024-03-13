@@ -4,20 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class Tracking extends Model
+class Step extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'code',
-        'registration_field_id',
+        'step_id',
+        'step_number',
     ];
-    public function companyField(): BelongsTo
+
+    public function step(): HasMany
     {
-        return $this->belongsTo(RegistrationField::class);
+        return $this->hasMany(Step::class);
     }
     public function progressLog(): HasMany
     {
