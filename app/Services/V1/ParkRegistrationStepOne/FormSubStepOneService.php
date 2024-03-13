@@ -10,7 +10,18 @@ use App\Services\V1\ImageService;
 
 class FormSubStepOneService
 {
-    public static function save(StoreFormSubStepOneRequest $request)
+    public static int $trackingCode;
+    private static $instance = null;
+
+    public static function getInstance(): ?FormSubStepOneService
+    {
+        if (self::$instance === null) {
+            self::$instance = new self;
+        }
+
+        return self::$instance;
+    }
+    public static function save(StoreFormSubStepOneRequest $request): ?FormSubStepOneService
     {
         $companyInformation = [
             'name'=>$request->input('name'),
@@ -40,9 +51,12 @@ class FormSubStepOneService
        self::createPhones($companyInformation, $request->input('phone_number'));
        self::createFaxes($companyInformation, $request->input('fax_number'));
         $trackingCode = $companyInformation->tracking()->create(['code'=>rand(100000000, 1000000000)]);
+        self::setTrackingCode($trackingCode->code);
         $progressLog = ['sub_step'=>ParkRegistrationsSubStepStatus::SUB_STEP_COMPANY_COMPLETED, 'step'=>ParkRegistrationStepStatus::STEP_PRIMARY_INFORMATION];
         $trackingCode->progressLog()->create($progressLog);
+        return self::getInstance();
     }
+
 
     public static function createPhones(CompanyField $companyInformation, array $phone_numbers): void
     {
@@ -58,4 +72,14 @@ class FormSubStepOneService
         }
     }
 
+    public static function getTrackingCode(): int
+    {
+        return self::$trackingCode;
     }
+
+    public static function setTrackingCode(int $trackingCode): void
+    {
+        self::$trackingCode = $trackingCode;
+    }
+
+}

@@ -48,7 +48,7 @@ class StoreFormSubStepOneRequest extends FormRequest
             'company_registration_number'=>['bail', 'required', 'regex:/^[۰-۹]+$/'],
             'company_registration_place'=>['bail', 'required', 'string'],
             'company_registration_date'=>'bail|required|date|before:yesterday',
-            'national_card_and_birth.*'=>['bail', 'required', 'image', 'max:5120', new ImageLimitationCount('national_card_and_birth', 2)],
+            'national_card_and_birth.*'=>['bail', 'required', 'image', 'max:5120', new ImageLimitationCount('national_card_and_birth', 10)],
             'company_type'=>['bail', 'required', Rule::enum(CompanyType::class)],
             'is_danesh_bonyan'=>['bail', 'required', Rule::enum(Enum::class)],
             'danesh_bonyan_license_type'=>['bail', Rule::requiredIf(request('is_danesh_bonyan') === IsDaneshBonyan::YES->value), Rule::enum(LicenseType::class)],
