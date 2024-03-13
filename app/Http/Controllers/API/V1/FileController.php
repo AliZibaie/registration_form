@@ -30,7 +30,7 @@ class FileController extends Controller
 
             $uploadPath = $uploadFileRequest
                 ->file('file')
-                ->store($trackingCode.'/'.$name.'/'.$today);
+                ->store($trackingCode.'/'.$today);
 
             $agent = new Agent();
 

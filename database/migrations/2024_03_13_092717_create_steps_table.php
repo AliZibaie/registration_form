@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('steps', function (Blueprint $table) {
             $table->id();
-            $table->string('step_number');
+            $table->string('title');
+            $table->text('description');
+            $table->enum('order_step', [1, 2, 3, 4]);
             //those steps that their step_id is null are the main step and those steps that have step_id!=null are sub step
             $table->foreignId('step_id')
                 ->nullable();
