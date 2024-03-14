@@ -33,8 +33,10 @@ Route::prefix('v1')->group(function (){
                 ->name('step_one.step_one');
             Route::post('/sub_step_two', [FormController::class, 'registerStepTwo'])
                 ->name('step_one.step_two');
-            Route::post('/sub_step_three', [FormController::class, 'registerStepTwo'])
+            Route::post('/sub_step_three', [FormController::class, 'registerStepThree'])
                 ->name('step_one.step_three');
+            Route::post('/sub_step_four', [FormController::class, 'registerStepFour'])
+                ->name('step_one.step_four');
         });
         Route::post('/tracking', [TrackingController::class, 'continueForm']);
         Route::post('/status', [TrackingController::class, 'checkStatus'])

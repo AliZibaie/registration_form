@@ -33,7 +33,7 @@ class FormSubStepTwoService
             'CEO_cooperation_started_at'=>$request->input('CEO_cooperation_started_at'),
             'CEO_records'=>$request->input('CEO_records'),
         ];
-         RegistrationField::query()->update($newFormInformation);
+         RegistrationField::query()->where('id',$trackingCode->registration_field_id )->update($newFormInformation);
         $agent = new Agent();
         $progressLog = [
             'status'=>RegistrationStatus::NOT_COMPLETED,

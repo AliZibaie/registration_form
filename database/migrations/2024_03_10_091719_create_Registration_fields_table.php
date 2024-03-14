@@ -73,29 +73,44 @@ return new class extends Migration
             $table->text('CEO_records')->nullable();
 
             // form step 3
-            $table->json('boards');
 
-            $table->string('first_name')->nullable();
-            $table->string('last_name')->nullable();
-            $table->string('identify_number')->nullable();
-            $table->string('national_code')->nullable();
-            $table->string('birth_place')->nullable();
-            $table->date('birth_date')->nullable();
-            $table->enum('gender', Gender::getValues())->nullable();
-            $table->enum('cooperation_type', CooperationType::getValues())->nullable();
-            $table->date('cooperation_started_at')->nullable();
-            $table->date('birth_date')->nullable();
-            $table->date('position')->nullable();
-            $table->string('phone_number')->nullable();
-            $table->string('last_educational_stage')
-                ->nullable();
-            $table->enum('last_educational_stage', EducationalStage::getValues())->nullable();
-            $table->string('educational_group')->nullable();
-            $table->string('educational_field')->nullable();
-            $table->string('experience')->nullable();
-            $table->text('email');
+            $table->json('boards')->nullable();
 
-            // form step 3
+//            $table->string('first_name')->nullable();
+//            $table->string('last_name')->nullable();
+//            $table->string('identify_number')->nullable();
+//            $table->string('national_code')->nullable();
+//            $table->string('birth_place')->nullable();
+//            $table->date('birth_date')->nullable();
+//            $table->enum('gender', Gender::getValues())->nullable();
+//            $table->enum('cooperation_type', CooperationType::getValues())->nullable();
+//            $table->date('cooperation_started_at')->nullable();
+//            $table->date('position')->nullable();
+//            $table->string('phone_number')->nullable();
+//            $table->string('last_educational_stage')
+//                ->nullable();
+//            $table->enum('last_educational_stage', EducationalStage::getValues())->nullable();
+//            $table->string('educational_group')->nullable();
+//            $table->string('educational_field')->nullable();
+//            $table->string('experience')->nullable();
+//            $table->text('email');
+
+            // form step 4
+
+            $table->json('shareholders')->nullable();
+
+//            $table->string('type')->nullable();
+//            $table->string('name')->nullable();
+//            $table->string('share_percent')->nullable();
+//            $table->string('legal_shareholder_type')->nullable();
+//            $table->string('full_name_legal_shareholder_representative')->nullable();
+
+            $table->json('shareholdings')->nullable();
+
+//            $table->string('company_name')->nullable();
+//            $table->string('activity_area')->nullable();
+//            $table->string('share_percent_in_company')->nullable();
+//            $table->boolean('is_spin_off')->nullable();
 
             $table->timestamps();
         });
