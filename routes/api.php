@@ -28,10 +28,14 @@ Route::prefix('v1')->group(function (){
     });
     // form 1
     Route::prefix('/registration')->group(function (){
-        Route::post('/step_one', [FormController::class, 'registerStepOne'])
-            ->name('step_company');
-        Route::post('/step_two', [FormController::class, 'registerCEO'])
-            ->name('step_chief_executive_officer');
+        Route::prefix('step_one')->group(function (){
+            Route::post('/sub_step_one', [FormController::class, 'registerStepOne'])
+                ->name('step_one.step_one');
+            Route::post('/sub_step_two', [FormController::class, 'registerStepTwo'])
+                ->name('step_one.step_two');
+            Route::post('/sub_step_three', [FormController::class, 'registerStepTwo'])
+                ->name('step_one.step_three');
+        });
         Route::post('/tracking', [TrackingController::class, 'continueForm']);
         Route::post('/status', [TrackingController::class, 'checkStatus'])
             ->name('check.status');

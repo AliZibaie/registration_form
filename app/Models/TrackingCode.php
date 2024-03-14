@@ -24,8 +24,4 @@ class TrackingCode extends Model
         return $this->hasMany(ProgressLog::class);
     }
 
-    public function scopeGetTrackingCode( $code, Builder $query): void
-    {
-         $query->where('code', $code);
-    }
 }

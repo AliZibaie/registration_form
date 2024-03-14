@@ -6,6 +6,7 @@ use App\Enums\RegistrationStatus;
 use App\Http\Requests\API\V1\ParkRegistrationStepOne\SubStepOne\StoreFormSubStepOneRequest;
 use App\Http\Requests\API\V1\ParkRegistrationStepOne\SubStepOne\UpdateFormSubStepOneRequest;
 use App\Models\RegistrationField;
+use App\Models\Step;
 use App\Models\TrackingCode;
 use App\Services\V1\FileUpload;
 use Jenssegers\Agent\Agent;
@@ -56,7 +57,7 @@ class FormSubStepOneService
         $agent = new Agent();
         $progressLog = [
             'status'=>RegistrationStatus::NOT_COMPLETED,
-            'step_id'=>2,
+            'step_id'=>Step::query()->where('step_id', 1)->where('order', 1)->first()->id,
             'ip'=>$request->ip(),
             'browser'=>$agent->browser(),
             'platform'=>$agent->platform(),

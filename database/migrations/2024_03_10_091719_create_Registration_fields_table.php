@@ -65,30 +65,35 @@ return new class extends Migration
             $table->string('CEO_birth_place')->nullable();
             $table->date('CEO_birth_date')->nullable();
             $table->string('CEO_phone_number')->nullable();
-//            $table->enum('CEO_last_educational_stage', EducationalStage::getValues())
-//                ->nullable();
-//            $table->enum('CEO_educational_group', EducationalGroup::getValues())->nullable();
-//            $table->enum('CEO_educational_field', EducationalField::getValues())->nullable();
-//            $table->enum('CEO_cooperation_type', CooperationType::getValues())->nullable();
+            $table->enum('CEO_last_educational_stage', EducationalStage::getValues())->nullable();
+            $table->string('CEO_educational_group')->nullable();
+            $table->string('CEO_educational_field')->nullable();
+            $table->enum('CEO_cooperation_type', CooperationType::getValues())->nullable();
             $table->date('CEO_cooperation_started_at')->nullable();
-            $table->json('CEO_records')->nullable();
+            $table->text('CEO_records')->nullable();
 
             // form step 3
+            $table->json('boards');
 
-            $table->string('board_first_name')->nullable();
-            $table->string('board_last_name')->nullable();
-            $table->string('board_father_name')->nullable();
-            $table->string('board_identify_number')->nullable();
-            $table->string('board_national_code')->nullable();
-            $table->string('board_birth_place')->nullable();
-            $table->enum('board_gender', Gender::getValues())->nullable();
-            $table->date('board_birth_date')->nullable();
-            $table->string('board_phone_number')->nullable();
-//            $table->enum('board_last_educational_stage', EducationalStage::getValues())->nullable();
-//            $table->enum('board_educational_group', EducationalGroup::getValues())->nullable();
-//            $table->enum('board_educational_field', EducationalField::getValues())->nullable();
-//            $table->enum('board_cooperation_type', CooperationType::getValues())->nullable();
-            $table->date('board_cooperation_started_at')->nullable();
+            $table->string('first_name')->nullable();
+            $table->string('last_name')->nullable();
+            $table->string('identify_number')->nullable();
+            $table->string('national_code')->nullable();
+            $table->string('birth_place')->nullable();
+            $table->date('birth_date')->nullable();
+            $table->enum('gender', Gender::getValues())->nullable();
+            $table->enum('cooperation_type', CooperationType::getValues())->nullable();
+            $table->date('cooperation_started_at')->nullable();
+            $table->date('birth_date')->nullable();
+            $table->date('position')->nullable();
+            $table->string('phone_number')->nullable();
+            $table->string('last_educational_stage')
+                ->nullable();
+            $table->enum('last_educational_stage', EducationalStage::getValues())->nullable();
+            $table->string('educational_group')->nullable();
+            $table->string('educational_field')->nullable();
+            $table->string('experience')->nullable();
+            $table->text('email');
 
             // form step 3
 

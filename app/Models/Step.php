@@ -4,17 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Step extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'step_id',
-        'step_number',
     ];
 
-    public function step(): HasMany
+    public function step(): BelongsTo
+    {
+        return $this->belongsTo(Step::class);
+    }
+    public function steps(): HasMany
     {
         return $this->hasMany(Step::class);
     }

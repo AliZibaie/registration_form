@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers\API\V1;
 
+use App\Enums\RegistrationStatus;
 use App\Http\Controllers\Controller;
-use App\Models\ProgressLog;
+use App\Models\Step;
 use App\Models\TrackingCode;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Symfony\Component\HttpFoundation\Response;
-use function Laravel\Prompts\search;
 
 class TrackingController extends Controller
 {
@@ -20,16 +18,11 @@ class TrackingController extends Controller
 
         try {
             request()->validate([
-                'code'=>['required',Rule::exists(TrackingCode::class, 'code')]
+                'tracking_code'=>['required',Rule::exists(TrackingCode::class, 'code')]
             ]);
-            dd('tracking_code');
-            $trackingModel = TrackingCode::getTrackingCode(request('tracking_code'))->first();
-            dd($trackingModel);
-            $sub_step = $trackingModel->progressLog->sub_step;
             return response()->json([
                 'status'=>true,
-                'step'=>'park_registration',
-                'sub_step'=>'company',
+                'next_route'=>$this->nextRoute(),
             ]);
         }catch (\Throwable $throwable){
             return response()
@@ -56,14 +49,41 @@ class TrackingController extends Controller
             ]);
     }
 
-    private function nextStep(array|string $routeStep): string
+    private function nextRoute(): string
     {
-        $stepIndex = array_search($routeStep, ParkRegistrationsSubStepStatus::getValues()) + 1;
-        if ($stepIndex != count(ParkRegistrationsSubStepStatus::getValues())){
-            $routeStep = ParkRegistrationsSubStepStatus::getValues()[array_search($routeStep, ParkRegistrationsSubStepStatus::getValues()) + 1];
-            $routeStep = str_replace('_completed', '', $routeStep);
-            $routeStep = str_replace('sub_', '', $routeStep);
-            return $routeStep;
+        $nextStep = $this->nextStep();
+        $nextSubStep = $this->nextSubStep();
+        return route("$nextStep.$nextSubStep");
+    }
+
+    private function nextStep(): string
+    {
+        $trackingCode = TrackingCode::query()->where('code', request('tracking_code'))->first();
+        $lastProgressLog = $trackingCode->progressLog()->orderByDesc('created_at')->first();
+        if ($lastProgressLog->status == RegistrationStatus::NOT_COMPLETED){
+            return 'step_one';
+        }
+        $orderStep = $lastProgressLog->step->step->order;
+        $orderNextStep = $orderStep + 0;
+
+        $nextStep = Step::query()->where('step_id', null)->where('order', $orderNextStep)->first()->title;
+        if ($nextStep){
+            return $nextStep;
+        }
+       return 'check.status';
+    }
+    private function nextSubStep()
+    {
+        $trackingCode = TrackingCode::query()->where('code', request('tracking_code'))->first();
+        $lastProgressLog = $trackingCode->progressLog()->orderByDesc('created_at')->first();
+
+        $orderSubStep = $lastProgressLog->step->order;
+        $stepId = $lastProgressLog->step->step_id;
+        $orderNextSubStep = $orderSubStep + 1;
+
+        $nextStep = Step::query()->where('step_id', $stepId)->where('order', $orderNextSubStep)->first()->title;
+        if ($nextStep){
+            return $nextStep;
         }
         return 'check.status';
     }
