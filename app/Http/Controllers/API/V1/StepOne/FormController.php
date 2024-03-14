@@ -1,17 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\API\V1;
+namespace App\Http\Controllers\API\V1\StepOne;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\API\V1\ParkRegistrationStepOne\StoreFormSubStepOneRequest;
-use App\Http\Requests\API\V1\ParkRegistrationStepOne\StoreFormSubStepTwoRequest;
-use App\Http\Requests\API\V1\ParkRegistrationStepOne\UpdateFormSubStepOneRequest;
+use App\Http\Requests\API\V1\ParkRegistrationStepOne\SubStepOne\StoreFormSubStepOneRequest;
+use App\Http\Requests\API\V1\ParkRegistrationStepOne\SubStepOne\UpdateFormSubStepOneRequest;
 use App\Services\V1\ParkRegistrationStepOne\FormSubStepOneService;
-use App\Services\V1\ParkRegistrationStepOne\FormSubStepTwoService;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
-class RegisterController extends Controller
+class FormController extends Controller
 {
 
     // first step form and first sub step form (company information)
@@ -35,6 +33,7 @@ class RegisterController extends Controller
                     'status'=>false,
                     'code'=>Response::HTTP_INTERNAL_SERVER_ERROR,
                     'message'=>'failed to store information!',
+                    'reason'=>$throwable->getMessage(),
                 ]);
         }
     }
@@ -61,14 +60,5 @@ class RegisterController extends Controller
                 ], 500);
         }
     }
-    public function registerCEO(StoreFormSubStepTwoRequest $request, int $tracking)
-    {
-        try {
-            FormSubStepTwoService::save($request, $tracking);
-            echo "success";
-        }catch (\Throwable $throwable){
-            echo "fail";
-            dd($throwable->getMessage());
-        }
-    }
+
 }

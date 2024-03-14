@@ -13,20 +13,41 @@ class StepSeeder extends Seeder
      */
     public function run(): void
     {
-            $mainStepOne = ['step_number'=>'one'];
-            $mainStepTwo = ['step_number'=>'two'];
-            $mainStepThree = ['step_number'=>'three'];
 
-            $subStepsOne = [
-                ['step_number'=>'one'],
-                ['step_number'=>'two'],
-                ['step_number'=>'three'],
-                ['step_number'=>'four'],
-                ];
+        $mainStepOne = [
+            'title'=>'اطلاعات اولیه',
+            'description'=>'form step one sub step one in park registration',
+            'order'=>1,
+            ];
+
+
+        $subSteps = [
+            ['title'=>'شرکت',
+            'description'=>'form step one  sub step two   in park registration',
+            'order'=>1,
+            'step_id'=>1,],
+
+            ['title'=>'مدیرعامل',
+            'description'=>'form step one  sub step two  in park registration',
+            'order'=>2,
+            'step_id'=>1,],
+
+            ['title'=>'هیئت مدیره',
+                'description'=>'form step one  sub step three  in park registration',
+                'order'=>3,
+                'step_id'=>1,],
+
+            ['title'=>'سهامداری',
+                'description'=>'form step one  sub step four in park registration',
+                'order'=>4,
+                'step_id'=>1,]
+        ];
+
+
 
             $stepOne = Step::factory()->create($mainStepOne);
-            foreach ($subStepsOne as $subStepOne) {
-                $stepOne->step()->create($subStepOne);
+            foreach ($subSteps as $subStep) {
+                $stepOne->step()->create($subStep);
             }
 
 

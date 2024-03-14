@@ -94,6 +94,7 @@ return [
     ],
     'max_digits' => 'گزینه :attribute نباید بیشتر از :max رقم باشد',
     'mimes' => 'گزینه :attribute باید دارای یکی از این فرمت ها باشد: :values',
+    'extensions' => 'گزینه :attribute باید دارای یکی از این فرمت ها باشد: :values',
     'mimetypes' => 'گزینه :attribute باید دارای یکی از این فرمت ها باشد: :values',
     'min' => [
         'array' => 'گزینه :attribute باید حداقل :min آیتم داشته باشد',
@@ -215,6 +216,7 @@ return [
         'national_card_and_birth' => 'توضیحات',
         'activity_subject' => 'موضوع فعالیت',
         'activity_specialty' => 'زمینه تخصصی فعالیت',
+        'file' => 'فایل',
 
         'experience_file' => 'سابقه فعالیت',
         'company_field_id' => 'حوزه تخصصی',

@@ -14,7 +14,10 @@ class Image extends Model
         return $this->morphTo();
     }
     protected $fillable = [
-      'url',
-      'title',
+      'platform',
+      'ip',
+      'path',
+      'name',
+      'browser',
     ];
 }

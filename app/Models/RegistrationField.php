@@ -34,6 +34,8 @@ class RegistrationField extends Model
       'license_validity_date',
       'license_issuance_reference',
       'registration_date',
+      'fax_numbers',
+      'phone_numbers',
     ];
 
     public function images(): MorphMany
@@ -42,6 +44,6 @@ class RegistrationField extends Model
     }
     public function tracking(): HasOne
     {
-        return $this->hasone(Tracking::class);
+        return $this->hasone(TrackingCode::class);
     }
 }

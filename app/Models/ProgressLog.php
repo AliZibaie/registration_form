@@ -17,7 +17,7 @@ class ProgressLog extends Model
 
     public function tracking(): BelongsTo
     {
-        return $this->belongsTo(Tracking::class);
+        return $this->belongsTo(TrackingCode::class);
     }
     public function step(): BelongsTo
     {

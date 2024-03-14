@@ -16,12 +16,9 @@ return new class extends Migration
             $table->morphs('imageable');
             $table->text('path');
             $table->string('name');
-            $table->ipAddress('ip')
-                ->nullable();
-            $table->string('browser')
-                ->nullable();
-            $table->string('platform')
-                ->nullable();
+            $table->ipAddress('ip')->nullable();
+            $table->string('browser')->nullable();
+            $table->string('platform')->nullable();
             $table->timestamps();
         });
     }

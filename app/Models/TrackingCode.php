@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class Tracking extends Model
+class TrackingCode extends Model
 {
     use HasFactory;
     protected $fillable = [
@@ -22,5 +22,10 @@ class Tracking extends Model
     public function progressLog(): HasMany
     {
         return $this->hasMany(ProgressLog::class);
+    }
+
+    public function scopeGetTrackingCode( $code, Builder $query): void
+    {
+         $query->where('code', $code);
     }
 }

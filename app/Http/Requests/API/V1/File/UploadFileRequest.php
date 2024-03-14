@@ -3,6 +3,8 @@
 namespace App\Http\Requests\API\V1\File;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Symfony\Component\HttpFoundation\Response;
 
 class UploadFileRequest extends FormRequest
 {
@@ -22,9 +24,17 @@ class UploadFileRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'file' => ['required', 'mimes:jpg,png,jpeg,pdf,svg', 'max:4096'],
-            'name' => ['required', 'string', 'max:255']
-
+            'tracking_code' => ['bail', 'required', 'integer', 'exists:tracking_codes,code'],
+            'file.*' => ['bail', 'required', 'mimes:jpg,png,jpeg,pdf,svg', 'max:4096'],
+            'name' => ['bail', 'required', 'string','min:3', 'max:255']
         ];
+    }
+    protected function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)
+    {
+        throw new HttpResponseException(response()->json([
+            'message'   => 'حطای اعتبار سنجی',
+            'code'   => Response::HTTP_UNAUTHORIZED,
+            'reason' => $validator->errors(),
+        ]));
     }
 }
